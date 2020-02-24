@@ -66,12 +66,20 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: <Widget>[
+            Padding(padding: EdgeInsets.all(10)),
             showScore(),
+            Padding(padding: EdgeInsets.all(10)),
             showFoundWords(),
+            Padding(padding: EdgeInsets.all(10)),
+            Expanded(
+              flex: 1,
+              child: showWord(),
+            ),
             tiles(),
-            showWord(),
             showMessage(),
-            checkButton(),
+            Padding(padding: EdgeInsets.all(10)),
+            buttons(),
+            Padding(padding: EdgeInsets.all(20)),
           ],
         ),
       ),
@@ -80,13 +88,18 @@ class _HomePageState extends State<HomePage> {
 
   Widget showScore() {
     return Container(
-      child: Text('Score: $score'),
+      child: Text(
+        'Score: $score',
+        style: TextStyle(fontSize: 22.0),
+      ),
     );
   }
 
   Widget showFoundWords() {
     return Container(
-      child: Text('Found words: $foundWords'),
+      child: Column(
+        children: <Widget>[Text('Found words:'), Text('$foundWords')],
+      ),
     );
   }
 
@@ -103,7 +116,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           tile(secondaryLetters[2]),
-          tile(primaryLetter),
+          tile(primaryLetter, primary: true),
           tile(secondaryLetters[3]),
         ],
       ),
@@ -117,27 +130,57 @@ class _HomePageState extends State<HomePage> {
     ]);
   }
 
-  Widget tile(String letter) {
+  Widget tile(String letter, {bool primary = false}) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: RaisedButton(
-            onPressed: () {
-              _addToWord(letter);
-            },
-            child: Text(letter)),
+          onPressed: () {
+            _addToWord(letter);
+          },
+          child: Text(letter),
+          color: primary ? Colors.amber[400] : Colors.grey[200],
+        ),
       ),
     );
   }
 
   Widget showWord() {
     return Container(
-      child: Text(word),
+      child: Text(word, style: TextStyle(fontSize: 22.0)),
     );
   }
 
   Widget showMessage() {
     return Container(child: Text(message));
+  }
+
+  Widget buttons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: deleteButton(),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: checkButton(),
+        ),
+      ],
+    );
+  }
+
+  Widget deleteButton() {
+    return Container(
+        child: RaisedButton(
+      onPressed: () {
+        setState(() {
+          word = word.substring(0, word.length - 1);
+        });
+      },
+      child: Text('DELETE'),
+    ));
   }
 
   Widget checkButton() {
@@ -162,7 +205,7 @@ class _HomePageState extends State<HomePage> {
       if (dictionary.contains(word.toLowerCase())) {
         if (!foundWords.contains(word)) {
           foundWords.add(word);
-          score += 1;
+          score += word.length;
           message = '';
         }
       } else if (!word.contains(primaryLetter)) {
