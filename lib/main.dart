@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             showScore(),
             showFoundWords(),
