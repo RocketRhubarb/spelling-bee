@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spelling_bee/widgets/letter_tiles.dart';
 
 import './widgets/buttons.dart';
 
@@ -73,7 +74,11 @@ class _HomePageState extends State<HomePage> {
             showFoundWords(),
             showWord(),
             showMessage(),
-            tiles(),
+            LetterTiles(
+              primaryLetter: primaryLetter,
+              secondaryLetters: secondaryLetters,
+              addToWord: _addToWord,
+            ),
             Buttons(
               checkWord: _checkWord,
               removeLast: _removeLast,
@@ -97,48 +102,6 @@ class _HomePageState extends State<HomePage> {
     return Container(
       child: Column(
         children: <Widget>[Text('Found words:'), Text('$foundWords')],
-      ),
-    );
-  }
-
-  Widget tiles() {
-    return Column(children: <Widget>[
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          tile(secondaryLetters[0]),
-          tile(secondaryLetters[1]),
-        ],
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          tile(secondaryLetters[2]),
-          tile(primaryLetter, primary: true),
-          tile(secondaryLetters[3]),
-        ],
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          tile(secondaryLetters[4]),
-          tile(secondaryLetters[5]),
-        ],
-      ),
-    ]);
-  }
-
-  Widget tile(String letter, {bool primary = false}) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: RaisedButton(
-          onPressed: () {
-            _addToWord(letter);
-          },
-          child: Text(letter),
-          color: primary ? Colors.amber[400] : Colors.grey[200],
-        ),
       ),
     );
   }
