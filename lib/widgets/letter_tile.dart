@@ -18,7 +18,9 @@ class LetterTile extends StatelessWidget {
             addToWord(letter);
           },
           child: Text(letter),
-          color: primary ? Colors.amber[400] : Colors.grey[200],
+          color: primary
+              ? Theme.of(context).primaryColor
+              : Theme.of(context).primaryColorLight,
         ),
       ),
     );
