@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './widgets/buttons.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -72,7 +74,10 @@ class _HomePageState extends State<HomePage> {
             showWord(),
             showMessage(),
             tiles(),
-            buttons(),
+            Buttons(
+              checkWord: _checkWord,
+              removeLast: _removeLast,
+            )
           ],
         ),
       ),
@@ -148,48 +153,15 @@ class _HomePageState extends State<HomePage> {
     return Container(child: Text(message));
   }
 
-  Widget buttons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: deleteButton(),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: checkButton(),
-        ),
-      ],
-    );
-  }
-
-  Widget deleteButton() {
-    return Container(
-        child: RaisedButton(
-      onPressed: () {
-        setState(() {
-          word = word.substring(0, word.length - 1);
-        });
-      },
-      child: Text('DELETE'),
-    ));
-  }
-
-  Widget checkButton() {
-    return Container(
-      child: RaisedButton(
-        onPressed: () {
-          _checkWord();
-        },
-        child: Text('CHECK'),
-      ),
-    );
-  }
-
   void _addToWord(String letter) {
     setState(() {
       word = word + letter;
+    });
+  }
+
+  void _removeLast() {
+    setState(() {
+      word = word.substring(0, word.length - 1);
     });
   }
 
