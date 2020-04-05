@@ -61,61 +61,6 @@ class _HomePageState extends State<HomePage> {
   List<String> secondaryLetters = ['D', 'P', 'O', 'N', 'I', 'H'];
   String message = '';
 
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Spelling Bee'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            showScore(),
-            showFoundWords(),
-            showWord(),
-            showMessage(),
-            LetterTiles(
-              primaryLetter: primaryLetter,
-              secondaryLetters: secondaryLetters,
-              addToWord: _addToWord,
-            ),
-            Buttons(
-              checkWord: _checkWord,
-              removeLast: _removeLast,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget showScore() {
-    return Container(
-      child: Text(
-        'Score: $score',
-        style: TextStyle(fontSize: 22.0),
-      ),
-    );
-  }
-
-  Widget showFoundWords() {
-    return Container(
-      child: Column(
-        children: <Widget>[Text('Found words:'), Text('$foundWords')],
-      ),
-    );
-  }
-
-  Widget showWord() {
-    return Container(
-      child: Text(word, style: TextStyle(fontSize: 22.0)),
-    );
-  }
-
-  Widget showMessage() {
-    return Container(child: Text(message));
-  }
-
   void _addToWord(String letter) {
     setState(() {
       word = word + letter;
@@ -144,5 +89,44 @@ class _HomePageState extends State<HomePage> {
 
       word = '';
     });
+  }
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Spelling Bee'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Container(
+              child: Text(
+                'Score: $score',
+                style: TextStyle(fontSize: 22.0),
+              ),
+            ),
+            Container(
+              child: Column(
+                children: <Widget>[Text('Found words:'), Text('$foundWords')],
+              ),
+            ),
+            Container(
+              child: Text(word, style: TextStyle(fontSize: 22.0)),
+            ),
+            Container(child: Text(message)),
+            LetterTiles(
+              primaryLetter: primaryLetter,
+              secondaryLetters: secondaryLetters,
+              addToWord: _addToWord,
+            ),
+            Buttons(
+              checkWord: _checkWord,
+              removeLast: _removeLast,
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
