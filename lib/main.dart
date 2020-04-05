@@ -52,8 +52,8 @@ class _HomePageState extends State<HomePage> {
     'pool',
     'poplin',
   ];
-  List<String> foundWords = [];
 
+  List<String> foundWords = [];
   String primaryLetter = 'L';
   List<String> secondaryLetters = ['D', 'P', 'O', 'N', 'I', 'H'];
   String message = '';
@@ -65,21 +65,14 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Padding(padding: EdgeInsets.all(10)),
             showScore(),
-            Padding(padding: EdgeInsets.all(10)),
             showFoundWords(),
-            Padding(padding: EdgeInsets.all(10)),
-            Expanded(
-              flex: 1,
-              child: showWord(),
-            ),
-            tiles(),
+            showWord(),
             showMessage(),
-            Padding(padding: EdgeInsets.all(10)),
+            tiles(),
             buttons(),
-            Padding(padding: EdgeInsets.all(20)),
           ],
         ),
       ),
