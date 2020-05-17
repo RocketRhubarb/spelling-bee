@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './widgets/letter_tiles.dart';
 import './widgets/score_board.dart';
 import './widgets/buttons.dart';
+import './words_and_letters.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,42 +29,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int score = 0;
   String word = '';
-  List<String> dictionary = [
-    'dildo',
-    'dill',
-    'diploid',
-    'doll',
-    'dollop',
-    'dolphin',
-    'hill',
-    'hold',
-    'idol',
-    'lion',
-    'lipid',
-    'lipo',
-    'lipoid',
-    'loin',
-    'loll',
-    'lollipop',
-    'lollop',
-    'loon',
-    'loop',
-    'nonillion',
-    'olio',
-    'pill',
-    'pillion',
-    'plod',
-    'plop',
-    'polio',
-    'poll',
-    'polo',
-    'pool',
-    'poplin',
-  ];
 
   List<String> foundWords = [];
-  String primaryLetter = 'L';
-  List<String> secondaryLetters = ['D', 'P', 'O', 'N', 'I', 'H'];
   String message = '';
 
   void _addToWord(String letter) {
