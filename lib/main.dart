@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:spelling_bee/widgets/letter_tiles.dart';
 
+import './widgets/letter_tiles.dart';
+import './widgets/score_board.dart';
 import './widgets/buttons.dart';
 
 void main() => runApp(MyApp());
@@ -10,8 +11,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme:
-          ThemeData(primarySwatch: Colors.amber, accentColor: Colors.grey[200]),
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+        accentColor: Colors.grey[200],
+      ),
       home: HomePage(),
     );
   }
@@ -99,6 +102,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  int get maxScore {
+    return dictionary.map((element) {
+      return element.length;
+    }).reduce((a, b) => a + b);
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -108,12 +117,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Container(
-              child: Text(
-                'Score: $score',
-                style: TextStyle(fontSize: 22.0),
-              ),
-            ),
+            ScoreBoard(score: score, maximumScore: maxScore),
             Container(
               child: Column(
                 children: <Widget>[Text('Found words:'), Text('$foundWords')],
