@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       if (dictionary.contains(word.toLowerCase())) {
         if (!foundWords.contains(word)) {
           foundWords.add(word);
-          score += word.length;
+          score += _calculateScore(word);
           message = '';
         }
       } else if (!word.contains(primaryLetter)) {
@@ -69,9 +69,25 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  int _calculateScore(word) {
+    // One point for a four letter word.
+    // One extra point per extra word.
+    // Seven extra points for a panagram.
+    bool panagram = true;
+    for (int i = 0; i < secondaryLetters.length; i++) {
+      if (!word.contains(secondaryLetters[i])) {
+        panagram = false;
+      }
+      if (panagram == true) {
+        return word.length - 3 + 7;
+      }
+    }
+    return word.length - 3;
+  }
+
   int get maxScore {
     return dictionary.map((element) {
-      return element.length;
+      return _calculateScore(element);
     }).reduce((a, b) => a + b);
   }
 
