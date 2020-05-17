@@ -93,6 +93,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _shuffleSecondaryLetterOrder() {
+    setState(() {
+      secondaryLetters.shuffle();
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -125,6 +131,7 @@ class _HomePageState extends State<HomePage> {
             Buttons(
               checkWord: _checkWord,
               removeLast: _removeLast,
+              shuffle: _shuffleSecondaryLetterOrder,
             )
           ],
         ),

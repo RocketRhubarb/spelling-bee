@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class Buttons extends StatelessWidget {
   final Function checkWord;
   final Function removeLast;
+  final Function shuffle;
 
-  Buttons({this.checkWord, this.removeLast});
+  Buttons({this.checkWord, this.removeLast, this.shuffle});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +32,7 @@ class Buttons extends StatelessWidget {
                     Icons.autorenew,
                     color: Colors.black,
                   ),
-                  // TODO: Update letter order
-                  onPressed: null,
+                  onPressed: shuffle,
                 ),
               ),
             ),
