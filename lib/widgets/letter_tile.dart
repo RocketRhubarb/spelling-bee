@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:polygon_clipper/polygon_border.dart';
-import 'package:polygon_clipper/polygon_clipper.dart';
 
 class LetterTile extends StatelessWidget {
   final String letter;
