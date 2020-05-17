@@ -11,24 +11,37 @@ class Buttons extends StatelessWidget {
     return Column(
       children: <Widget>[
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: RaisedButton(
-                  onPressed: removeLast,
-                  child: Text('DELETE'),
+            Flexible(
+              flex: 1,
+              child: RaisedButton(
+                onPressed: removeLast,
+                child: Text('DELETE'),
+                color: Theme.of(context).accentColor,
+              ),
+            ),
+            Flexible(
+              child: Card(
+                color: Theme.of(context).accentColor,
+                shape: CircleBorder(),
+                elevation: 2.0,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.autorenew,
+                    color: Colors.black,
+                  ),
+                  // TODO: Update letter order
+                  onPressed: null,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: RaisedButton(
-                  onPressed: checkWord,
-                  child: Text('CHECK'),
-                ),
+            Flexible(
+              flex: 1,
+              child: RaisedButton(
+                onPressed: checkWord,
+                child: Text('CHECK'),
+                color: Theme.of(context).accentColor,
               ),
             ),
           ],
