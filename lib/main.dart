@@ -85,22 +85,22 @@ class _HomePageState extends State<HomePage> {
     return word.length - 3;
   }
 
-  int get maxScore {
+  int get _maxScore {
     return dictionary.map((element) {
       return _calculateScore(element);
     }).reduce((a, b) => a + b);
   }
 
   String get getLevel {
-    if (score > maxScore * 0.6) {
+    if (score > _maxScore * 0.6) {
       return 'Expert';
-    } else if (score > maxScore * 0.5) {
+    } else if (score > _maxScore * 0.5) {
       return 'Artisan';
-    } else if (score > maxScore * 0.4) {
+    } else if (score > _maxScore * 0.4) {
       return 'Bookish';
-    } else if (score > maxScore * 0.2) {
+    } else if (score > _maxScore * 0.2) {
       return 'Great';
-    } else if (score > maxScore * 0.1) {
+    } else if (score > _maxScore * 0.1) {
       return 'On a roll';
     } else if (score > 10) {
       return 'Briliant';
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             ScoreBoard(
               score: score,
-              maximumScore: maxScore,
+              maximumScore: _maxScore,
               level: getLevel,
             ),
             Container(
