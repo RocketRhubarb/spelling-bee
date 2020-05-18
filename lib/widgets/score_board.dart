@@ -9,11 +9,13 @@ class ScoreBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.all(15.0),
       child: Column(
         children: <Widget>[
           Container(
             height: 12.0,
-            width: 340.0,
+            width: double.infinity,
+            margin: EdgeInsets.all(7.0),
             child: Stack(
               children: <Widget>[
                 Container(
@@ -37,9 +39,18 @@ class ScoreBoard extends StatelessWidget {
               ],
             ),
           ),
-          Text(
-            'Score: $score',
-            style: TextStyle(fontSize: 22.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Text(
+                'Level',
+                style: TextStyle(fontSize: 18.0),
+              ),
+              Text(
+                'Score: $score',
+                style: TextStyle(fontSize: 18.0),
+              ),
+            ],
           ),
         ],
       ),
