@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class ScoreBoard extends StatelessWidget {
   final int score;
   final int maximumScore;
+  final String level;
 
-  ScoreBoard({this.score, this.maximumScore});
+  ScoreBoard({this.score, this.maximumScore, this.level});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class ScoreBoard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Text(
-                'Level',
+                level.toString(),
                 style: TextStyle(fontSize: 18.0),
               ),
               Text(

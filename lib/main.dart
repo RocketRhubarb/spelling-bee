@@ -91,6 +91,26 @@ class _HomePageState extends State<HomePage> {
     }).reduce((a, b) => a + b);
   }
 
+  String get getLevel {
+    if (score > maxScore * 0.6) {
+      return 'Expert';
+    } else if (score > maxScore * 0.5) {
+      return 'Artisan';
+    } else if (score > maxScore * 0.4) {
+      return 'Bookish';
+    } else if (score > maxScore * 0.2) {
+      return 'Great';
+    } else if (score > maxScore * 0.1) {
+      return 'On a roll';
+    } else if (score > 10) {
+      return 'Briliant';
+    } else if (score > 2) {
+      return 'Good Start';
+    } else {
+      return 'Beginner';
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -100,7 +120,11 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            ScoreBoard(score: score, maximumScore: maxScore),
+            ScoreBoard(
+              score: score,
+              maximumScore: maxScore,
+              level: getLevel,
+            ),
             Container(
               child: Column(
                 children: <Widget>[Text('Found words:'), Text('$foundWords')],
