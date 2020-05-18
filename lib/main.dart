@@ -70,9 +70,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   int _calculateScore(word) {
-    // One point for a four letter word.
-    // One extra point per extra word.
-    // Seven extra points for a panagram.
     bool panagram = true;
     for (int i = 0; i < secondaryLetters.length; i++) {
       if (!word.contains(secondaryLetters[i])) {
