@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './widgets/found_words.dart';
 import './widgets/letter_tiles.dart';
 import './widgets/score_board.dart';
 import './widgets/buttons.dart';
@@ -123,9 +124,7 @@ class _HomePageState extends State<HomePage> {
               level: getLevel,
             ),
             Container(
-              child: Column(
-                children: <Widget>[Text('Found words:'), Text('$foundWords')],
-              ),
+              child: FoundWords(foundWords: foundWords),
             ),
             Container(
               child: Text(word, style: TextStyle(fontSize: 22.0)),
