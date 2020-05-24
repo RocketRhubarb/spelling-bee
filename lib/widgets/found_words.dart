@@ -21,6 +21,7 @@ class FoundWords extends StatelessWidget {
               width: double.infinity,
               child: GridView.count(
                 crossAxisCount: 3,
+                childAspectRatio: 4.0,
                 children: foundWords.map((word) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
