@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage> {
       if (dictionary.contains(word.toLowerCase())) {
         if (!foundWords.contains(word)) {
           foundWords.add(word);
+          foundWords.sort();
           score += _calculateScore(word);
           message = '';
         }
