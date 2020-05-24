@@ -59,6 +59,8 @@ class _HomePageState extends State<HomePage> {
         message = 'Word must contain $primaryLetter';
       } else if (word.length < 4) {
         message = 'Word must contain four letters';
+      } else if (!dictionary.contains(word)) {
+        message = 'Not a valid word';
       }
 
       word = '';
