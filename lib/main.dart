@@ -72,16 +72,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   int _calculateScore(word) {
-    bool panagram = true;
-    for (int i = 0; i < secondaryLetters.length; i++) {
-      if (!word.contains(secondaryLetters[i])) {
-        panagram = false;
-      }
-      if (panagram == true) {
-        return word.length - 3 + 7;
-      }
+    bool panagram = secondaryLetters
+        .map((element) => word.toUpperCase().contains(element))
+        .every((element) => element == true);
+
+    if (panagram) {
+      return word.length - 3 + 7;
+    } else {
+      return word.length - 3;
     }
-    return word.length - 3;
   }
 
   int get _maxScore {
