@@ -8,9 +8,9 @@ class FoundWords extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(15.0),
+      margin: EdgeInsets.only(right: 15.0, left: 15.0),
       child: Container(
-        margin: EdgeInsets.all(7.0),
+        margin: EdgeInsets.only(right: 7.0, left: 7.0),
         width: double.infinity,
         // height: 80.0,
         child: ExpansionTile(
