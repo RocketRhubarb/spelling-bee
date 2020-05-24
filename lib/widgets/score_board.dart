@@ -10,7 +10,7 @@ class ScoreBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(15.0),
+      margin: EdgeInsets.only(right: 15.0, left: 15.0),
       child: Column(
         children: <Widget>[
           Container(
