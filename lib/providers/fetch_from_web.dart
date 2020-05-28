@@ -2,10 +2,6 @@ import 'package:http/http.dart';
 import 'package:html/parser.dart';
 import 'package:html/dom.dart';
 
-void main() async {
-  print(extractLetters(await fetchWords(Client())));
-}
-
 Future<List<String>> fetchWords(Client client) async {
   // var client = Client();
   Response response = await client.get('https://nytbee.com/');
