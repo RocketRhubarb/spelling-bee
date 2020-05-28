@@ -37,6 +37,11 @@ Future<void> main() {
     // Assert
     expect(response, equals(['abc', 'def', 'ghi']));
   });
+  test('testing extract letter function', () {
+    var words = ['abc', 'ade', 'afg'];
+    var letters = fetch_from_web.extractLetters(words);
 
-  // print(await fetch_from_web.fetchWords(Client()));
+    expect(letters['primaryLetter'], equals('a'));
+    expect(letters['secondaryLetters'], equals(['b', 'c', 'd', 'e', 'f', 'g']));
+  });
 }
