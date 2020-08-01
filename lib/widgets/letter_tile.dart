@@ -17,10 +17,12 @@ class LetterTile extends StatelessWidget {
           addToWord(letter);
         },
         child: Padding(
-          padding: EdgeInsets.all(35),
-          child: Text(
-            letter,
-            style: TextStyle(fontSize: 18.0),
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.07),
+          child: FittedBox(
+            child: Text(
+              letter,
+              style: TextStyle(fontSize: 18.0),
+            ),
           ),
         ),
         color: primary

@@ -26,6 +26,8 @@ dependencies:
 
   polygon_clipper: ^1.0.2
 
+  device_simulator: ^0.9.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

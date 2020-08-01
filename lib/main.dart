@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:device_simulator/device_simulator.dart';
 
 import './widgets/found_words.dart';
 import './widgets/letter_tiles.dart';
 import './widgets/score_board.dart';
 import './widgets/buttons.dart';
 import './words_and_letters.dart';
+
+const bool debugEnableDeviceSimulator = true;
 
 void main() => runApp(MyApp());
 
@@ -33,6 +36,8 @@ class _HomePageState extends State<HomePage> {
 
   List<String> foundWords = [];
   String message = '';
+
+  bool onlyShowWords = false;
 
   void _addToWord(String letter) {
     setState(() {
@@ -112,38 +117,66 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Spelling Bee'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            ScoreBoard(
-              score: score,
-              maximumScore: _maxScore,
-              level: getLevel,
-            ),
-            Container(
-              child: FoundWords(foundWords: foundWords),
-            ),
-            Container(
-              child: Text(word, style: TextStyle(fontSize: 22.0)),
-            ),
-            Container(child: Text(message)),
-            LetterTiles(
-              primaryLetter: primaryLetter,
-              secondaryLetters: secondaryLetters,
-              addToWord: _addToWord,
-            ),
-            Buttons(
-              checkWord: _checkWord,
-              removeLast: _removeLast,
-              shuffle: _shuffleSecondaryLetterOrder,
-            )
-          ],
+    return DeviceSimulator(
+      brightness: Brightness.dark,
+      enable: debugEnableDeviceSimulator,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Spelling Bee'),
         ),
+        body: !onlyShowWords
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  ScoreBoard(
+                    score: score,
+                    maximumScore: _maxScore,
+                    level: getLevel,
+                  ),
+                  MediaQuery.of(context).size.height > 600
+                      ? FoundWords(foundWords: foundWords)
+                      : Column(
+                          children: <Widget>[
+                            Text('Show found words'),
+                            Switch.adaptive(
+                              activeColor: Theme.of(context).primaryColor,
+                              value: onlyShowWords,
+                              onChanged: (value) {
+                                setState(() {
+                                  onlyShowWords = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                  Text(word, style: TextStyle(fontSize: 22.0)),
+                  Text(message),
+                  LetterTiles(
+                    primaryLetter: primaryLetter,
+                    secondaryLetters: secondaryLetters,
+                    addToWord: _addToWord,
+                  ),
+                  Buttons(
+                    checkWord: _checkWord,
+                    removeLast: _removeLast,
+                    shuffle: _shuffleSecondaryLetterOrder,
+                  )
+                ],
+              )
+            : Column(
+                children: <Widget>[
+                  Text('Show found words'),
+                  Switch(
+                    value: onlyShowWords,
+                    onChanged: (value) {
+                      setState(() {
+                        onlyShowWords = value;
+                      });
+                    },
+                  ),
+                  FoundWords(foundWords: foundWords)
+                ],
+              ),
       ),
     );
   }
