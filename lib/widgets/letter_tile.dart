@@ -27,7 +27,7 @@ class LetterTile extends StatelessWidget {
           ),
         ),
         style: ElevatedButton.styleFrom(
-          onPrimary: primary
+          primary: primary
               ? Theme.of(context).primaryColor
               : Theme.of(context).primaryColorLight,
           shape: PolygonBorder(
