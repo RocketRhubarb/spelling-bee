@@ -4,10 +4,8 @@ import 'package:http/testing.dart';
 
 import 'package:spelling_bee/providers/fetch_from_web.dart' as fetch_from_web;
 
-Future<void> main() {
+void main() {
   // Our tests will go here
-
-  MockClient client = null;
 
   test('calling fetchWords(client) returns a list of words', () async {
     // Arrange
