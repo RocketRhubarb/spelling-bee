@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:polygon_clipper/polygon_border.dart';
+import 'package:flutter_polygon/flutter_polygon.dart';
+// import 'package:polygon_clipper/polygon_border.dart';
 
 class LetterTile extends StatelessWidget {
   final String letter;
@@ -12,7 +13,7 @@ class LetterTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () {
           addToWord(letter);
         },
@@ -25,12 +26,14 @@ class LetterTile extends StatelessWidget {
             ),
           ),
         ),
-        color: primary
-            ? Theme.of(context).primaryColor
-            : Theme.of(context).primaryColorLight,
-        shape: PolygonBorder(
-          sides: 6,
-          borderRadius: 5.0,
+        style: ElevatedButton.styleFrom(
+          onPrimary: primary
+              ? Theme.of(context).primaryColor
+              : Theme.of(context).primaryColorLight,
+          shape: PolygonBorder(
+            sides: 6,
+            borderRadius: 5.0,
+          ),
         ),
       ),
     );
