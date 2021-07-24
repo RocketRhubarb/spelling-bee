@@ -6,7 +6,7 @@ class FoundWords extends StatelessWidget {
   FoundWords({this.foundWords});
 
   int calcualateCrossAxisWordCount(BuildContext context) {
-    return (MediaQuery.of(context).size.width / 140).toInt();
+    return (MediaQuery.of(context).size.width ~/ 140).toInt();
   }
 
   @override
