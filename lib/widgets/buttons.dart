@@ -16,10 +16,12 @@ class Buttons extends StatelessWidget {
           children: <Widget>[
             Flexible(
               flex: 1,
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: removeLast,
                 child: Text('DELETE'),
-                color: Theme.of(context).accentColor,
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).accentColor,
+                ),
               ),
             ),
             Flexible(
@@ -38,10 +40,12 @@ class Buttons extends StatelessWidget {
             ),
             Flexible(
               flex: 1,
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: checkWord,
                 child: Text('CHECK'),
-                color: Theme.of(context).accentColor,
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).accentColor,
+                ),
               ),
             ),
           ],
