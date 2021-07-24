@@ -10,8 +10,10 @@ Future<List<String>> fetchWords(Client client) async {
   List<Element> links =
       document.querySelectorAll('#main-answer-list > ul > li');
 
-  var words =
-      links.map((link) => link.text).map((word) => word.trim()).toList();
+  var words = links
+      .map((link) => link.text)
+      .map((word) => word.trim().toUpperCase())
+      .toList();
 
   return words;
 }
