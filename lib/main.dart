@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 import './widgets/found_words.dart';
 import './widgets/letter_tiles.dart';
 import './widgets/score_board.dart';
 import './widgets/buttons.dart';
 import './words_and_letters.dart';
+import 'providers/fetch_from_web.dart';
 
 const bool debugEnableDeviceSimulator = true;
 
@@ -30,13 +32,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool onlyShowWords = false;
+
   int score = 0;
   String word = '';
-
   List<String> foundWords = [];
   String message = '';
 
-  bool onlyShowWords = false;
+  @override
+  void initState() {
+    fetcher();
+    super.initState();
+  }
+
+  void fetcher() async {
+    var client = Client();
+    dictionary = await fetchWords(client);
+
+    var letters = extractLetters(dictionary);
+    primaryLetter = letters['primaryLetter'];
+    secondaryLetters = letters['secondaryLetters'];
+    print(dictionary);
+  }
 
   void _addToWord(String letter) {
     setState(() {
@@ -52,7 +69,7 @@ class _HomePageState extends State<HomePage> {
 
   void _checkWord() {
     setState(() {
-      if (dictionary.contains(word.toLowerCase())) {
+      if (dictionary.contains(word)) {
         if (!foundWords.contains(word)) {
           foundWords.add(word);
           foundWords.sort();
@@ -79,7 +96,8 @@ class _HomePageState extends State<HomePage> {
 
   int _calculateScore(word) {
     bool panagram = secondaryLetters
-        .map((element) => word.toUpperCase().contains(element))
+        // .map((element) => word.toUpperCase().contains(element))
+        .map((element) => word.contains(element))
         .every((element) => element == true);
 
     if (panagram) {
