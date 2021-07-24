@@ -49,18 +49,7 @@ packages:
       name: csslib
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "0.16.2"
-=======
-    version: "2.1.4"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.16.1"
->>>>>>> 7d05a40... Add fetcher for daily list of words
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -98,31 +87,15 @@ packages:
       name: html
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "0.14.0+4"
-=======
-    version: "0.14.0+3"
->>>>>>> 7d05a40... Add fetcher for daily list of words
   http:
     dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "0.12.2"
   http_parser:
-=======
-    version: "0.12.1"
-  http_parser:
-    dependency: transitive
-    description:
-      name: http_parser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.4"
-  image:
->>>>>>> 7d05a40... Add fetcher for daily list of words
     dependency: transitive
     description:
       name: http_parser
@@ -149,34 +122,8 @@ packages:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "1.8.0"
   pedantic:
-=======
-    version: "1.6.4"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.9.0"
-  petitparser:
-    dependency: transitive
-    description:
-      name: petitparser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.4.0"
-  polygon_clipper:
-    dependency: "direct main"
-    description:
-      name: polygon_clipper
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
-  quiver:
->>>>>>> 7d05a40... Add fetcher for daily list of words
     dependency: transitive
     description:
       name: pedantic
