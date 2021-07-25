@@ -5,15 +5,8 @@ import './widgets/found_words.dart';
 import './widgets/letter_tiles.dart';
 import './widgets/score_board.dart';
 import './widgets/buttons.dart';
-<<<<<<< HEAD
-import './words_and_letters.dart';
-import 'providers/fetch_from_web.dart';
-
-const bool debugEnableDeviceSimulator = true;
-=======
 import './models/dictionary_model.dart';
 import './providers/fetch_from_web.dart';
->>>>>>> 4e52e84
 
 void main() => runApp(MyApp());
 
@@ -37,15 +30,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-<<<<<<< HEAD
-=======
   List<String> dictionary;
   String primaryLetter;
   List<String> secondaryLetters;
 
   Future<DictionaryModel> dict;
 
->>>>>>> 4e52e84
   bool onlyShowWords = false;
 
   int score = 0;
@@ -55,25 +45,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-<<<<<<< HEAD
-    fetcher();
-    super.initState();
-  }
-
-  void fetcher() async {
-    var client = Client();
-    dictionary = await fetchWords(client);
-
-    var letters = extractLetters(dictionary);
-    primaryLetter = letters['primaryLetter'];
-    secondaryLetters = letters['secondaryLetters'];
-    print(dictionary);
-=======
     var client = Client();
     dict = fetchAndCreateDictionary(client);
 
     super.initState();
->>>>>>> 4e52e84
   }
 
   void _addToWord(String letter) {
@@ -119,10 +94,6 @@ class _HomePageState extends State<HomePage> {
     if (secondaryLetters == null) return 1;
 
     bool panagram = secondaryLetters
-<<<<<<< HEAD
-        // .map((element) => word.toUpperCase().contains(element))
-=======
->>>>>>> 4e52e84
         .map((element) => word.contains(element))
         .every((element) => element == true);
 
