@@ -8,8 +8,6 @@ import './widgets/buttons.dart';
 import './models/dictionary_model.dart';
 import './providers/fetch_from_web.dart';
 
-const bool debugEnableDeviceSimulator = true;
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
