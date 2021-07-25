@@ -2,6 +2,8 @@ import 'package:http/http.dart';
 import 'package:html/parser.dart';
 import 'package:html/dom.dart';
 
+import 'package:spelling_bee/models/dictionary_model.dart';
+
 Future<List<String>> fetchWords(Client client) async {
   // var client = Client();
   Response response = await client.get('https://nytbee.com/');
@@ -55,4 +57,12 @@ Map<String, dynamic> extractLetters(List<String> words) {
   };
 
   return letters;
+}
+
+Future<DictionaryModel> fetchAndCreateDictionary(Client client) async {
+  var words = await fetchWords(client);
+  var letters = extractLetters(words);
+
+  return DictionaryModel(
+      words, letters['primaryLetter'], letters['secondaryLetters']);
 }

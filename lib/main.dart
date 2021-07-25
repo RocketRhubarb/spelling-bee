@@ -5,10 +5,15 @@ import './widgets/found_words.dart';
 import './widgets/letter_tiles.dart';
 import './widgets/score_board.dart';
 import './widgets/buttons.dart';
+<<<<<<< HEAD
 import './words_and_letters.dart';
 import 'providers/fetch_from_web.dart';
 
 const bool debugEnableDeviceSimulator = true;
+=======
+import './models/dictionary_model.dart';
+import './providers/fetch_from_web.dart';
+>>>>>>> 4e52e84
 
 void main() => runApp(MyApp());
 
@@ -32,6 +37,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+<<<<<<< HEAD
+=======
+  List<String> dictionary;
+  String primaryLetter;
+  List<String> secondaryLetters;
+
+  Future<DictionaryModel> dict;
+
+>>>>>>> 4e52e84
   bool onlyShowWords = false;
 
   int score = 0;
@@ -41,6 +55,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+<<<<<<< HEAD
     fetcher();
     super.initState();
   }
@@ -53,6 +68,12 @@ class _HomePageState extends State<HomePage> {
     primaryLetter = letters['primaryLetter'];
     secondaryLetters = letters['secondaryLetters'];
     print(dictionary);
+=======
+    var client = Client();
+    dict = fetchAndCreateDictionary(client);
+
+    super.initState();
+>>>>>>> 4e52e84
   }
 
   void _addToWord(String letter) {
@@ -95,8 +116,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   int _calculateScore(word) {
+    if (secondaryLetters == null) return 1;
+
     bool panagram = secondaryLetters
+<<<<<<< HEAD
         // .map((element) => word.toUpperCase().contains(element))
+=======
+>>>>>>> 4e52e84
         .map((element) => word.contains(element))
         .every((element) => element == true);
 
@@ -108,6 +134,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   int get _maxScore {
+    if (dictionary == null) {
+      return 100;
+    }
+
     return dictionary.map((element) {
       return _calculateScore(element);
     }).reduce((a, b) => a + b);
@@ -165,10 +195,55 @@ class _HomePageState extends State<HomePage> {
                       ),
                 Text(word, style: TextStyle(fontSize: 22.0)),
                 Text(message),
-                LetterTiles(
-                  primaryLetter: primaryLetter,
-                  secondaryLetters: secondaryLetters,
-                  addToWord: _addToWord,
+                FutureBuilder<DictionaryModel>(
+                  future: dict, // a previously-obtained Future<String> or null
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DictionaryModel> snapshot) {
+                    List<Widget> children;
+                    if (snapshot.hasData) {
+                      dictionary = snapshot.data.words;
+                      primaryLetter = snapshot.data.primaryLetter;
+                      secondaryLetters = snapshot.data.secondaryLetters;
+                      children = <Widget>[
+                        LetterTiles(
+                          primaryLetter: primaryLetter,
+                          secondaryLetters: secondaryLetters,
+                          addToWord: _addToWord,
+                        ),
+                      ];
+                    } else if (snapshot.hasError) {
+                      children = <Widget>[
+                        const Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                          size: 60,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Text('Error: ${snapshot.error.toString()}'),
+                        )
+                      ];
+                    } else {
+                      children = const <Widget>[
+                        SizedBox(
+                          child: CircularProgressIndicator(),
+                          width: 60,
+                          height: 60,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 16),
+                          child: Text('Loading today\'s puzzle'),
+                        )
+                      ];
+                    }
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: children,
+                      ),
+                    );
+                  },
                 ),
                 Buttons(
                   checkWord: _checkWord,
