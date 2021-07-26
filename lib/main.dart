@@ -6,7 +6,7 @@ import './widgets/letter_tiles.dart';
 import './widgets/score_board.dart';
 import './widgets/buttons.dart';
 import './models/dictionary_model.dart';
-import './providers/fetch_from_web.dart';
+import './repository/web_provider.dart';
 
 void main() => runApp(MyApp());
 
