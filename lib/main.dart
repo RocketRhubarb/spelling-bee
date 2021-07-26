@@ -6,7 +6,8 @@ import './widgets/letter_tiles.dart';
 import './widgets/score_board.dart';
 import './widgets/buttons.dart';
 import './models/dictionary_model.dart';
-import './repository/web_provider.dart';
+import './repository/resources.dart';
+// import './repository/web_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,7 +47,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     var client = Client();
-    dict = fetchAndCreateDictionary(client);
+    // dict = fetchAndCreateDictionary(client);
+    dict = fetchDictionary();
 
     super.initState();
   }
