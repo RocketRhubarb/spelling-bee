@@ -64,5 +64,8 @@ Future<DictionaryModel> fetchAndCreateDictionary(Client client) async {
   var letters = extractLetters(words);
 
   return DictionaryModel(
-      words, letters['primaryLetter'], letters['secondaryLetters']);
+    words: words,
+    primaryLetter: letters['primaryLetter'],
+    secondaryLetters: letters['secondaryLetters'],
+  );
 }

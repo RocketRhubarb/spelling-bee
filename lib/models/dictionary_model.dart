@@ -3,5 +3,5 @@ class DictionaryModel {
   final String primaryLetter;
   List<String> secondaryLetters;
 
-  DictionaryModel(this.words, this.primaryLetter, this.secondaryLetters);
+  DictionaryModel({this.words, this.primaryLetter, this.secondaryLetters});
 }
