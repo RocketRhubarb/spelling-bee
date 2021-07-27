@@ -24,8 +24,6 @@ Future<DictionaryModel> fetchDictionary() async {
 
   var entry = await store.record(date).get(db) as Map;
 
-  print(entry);
-
   if (entry != null) {
     print('from db');
     return DictionaryModel(
@@ -37,6 +35,7 @@ Future<DictionaryModel> fetchDictionary() async {
     print('from web');
     var client = Client();
     var dictionary = await fetchAndCreateDictionary(client);
+    storeInDb(dictionary);
     return dictionary;
   }
 }
