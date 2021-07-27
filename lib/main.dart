@@ -46,8 +46,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    var client = Client();
-    // dict = fetchAndCreateDictionary(client);
     dict = fetchDictionary();
 
     super.initState();

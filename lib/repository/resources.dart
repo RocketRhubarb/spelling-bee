@@ -37,7 +37,6 @@ Future<DictionaryModel> fetchDictionary() async {
     print('from web');
     var client = Client();
     var dictionary = await fetchAndCreateDictionary(client);
-    storeInDb(dictionary);
     return dictionary;
   }
 }
