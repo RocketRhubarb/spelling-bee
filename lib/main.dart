@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 
 import './widgets/found_words.dart';
 import './widgets/letter_tiles.dart';
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   List<String> dictionary;
   String primaryLetter;
   List<String> secondaryLetters;
+  DateTime _selectedDate;
 
   Future<DictionaryModel> dict;
 
@@ -46,7 +48,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    dict = fetchDictionary();
+    _selectedDate = DateTime.now();
+
+    dict = fetchDictionary(_selectedDate);
 
     super.initState();
   }
@@ -134,6 +138,23 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void _datePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2019, 09, 01),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
+    print(_selectedDate);
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -143,6 +164,16 @@ class _HomePageState extends State<HomePage> {
           ? Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
+                FlatButton(
+                  onPressed: _datePicker,
+                  child: Text(
+                    '${DateFormat.yMMMd().format(_selectedDate)}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  textColor: Theme.of(context).primaryColor,
+                ),
                 ScoreBoard(
                   score: score,
                   maximumScore: _maxScore,
