@@ -14,15 +14,18 @@ Future<String> get _localPath async {
   return directory.path;
 }
 
-Future<DictionaryModel> fetchDictionary() async {
-  var date = '2021-07-27';
+Future<DictionaryModel> fetchDictionary(DateTime date) async {
+  // var date = '2021-07-27';
+
+  var formatter = new DateFormat('yyyyMMdd');
+  String formattedDate = formatter.format(date);
 
   final path = await _localPath;
   final db = await databaseFactoryIo.openDatabase('$path/words_and_letters.db');
 
   var store = StoreRef.main();
 
-  var entry = await store.record(date).get(db) as Map;
+  var entry = await store.record(formattedDate).get(db) as Map;
 
   if (entry != null) {
     print('from db');
@@ -34,19 +37,14 @@ Future<DictionaryModel> fetchDictionary() async {
   } else {
     print('from web');
     var client = Client();
-    var dictionary = await fetchAndCreateDictionary(client);
-    storeInDb(dictionary);
+    var dictionary = await fetchAndCreateDictionary(client, formattedDate);
+    storeInDb(dictionary, formattedDate);
     return dictionary;
   }
 }
 
-void storeInDb(DictionaryModel dictionary) async {
-  var now = new DateTime.now();
-  var formatter = new DateFormat('yyyy-MM-dd');
-  String formattedDate = formatter.format(now);
-
+void storeInDb(DictionaryModel dictionary, String formattedDate) async {
   final path = await _localPath;
-  print(path);
   final db = await databaseFactoryIo.openDatabase('$path/words_and_letters.db');
   var store = StoreRef.main();
 

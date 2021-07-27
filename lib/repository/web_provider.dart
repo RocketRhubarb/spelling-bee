@@ -4,9 +4,9 @@ import 'package:html/dom.dart';
 
 import 'package:spelling_bee/models/dictionary_model.dart';
 
-Future<List<String>> fetchWords(Client client) async {
-  // var client = Client();
-  Response response = await client.get('https://nytbee.com/');
+Future<List<String>> fetchWords(Client client, String date) async {
+  var url = 'https://nytbee.com/Bee_$date.html';
+  Response response = await client.get(url);
 
   var document = parse(response.body);
   List<Element> links =
@@ -16,7 +16,6 @@ Future<List<String>> fetchWords(Client client) async {
       .map((link) => link.text)
       .map((word) => word.trim().toUpperCase())
       .toList();
-
   return words;
 }
 
@@ -59,8 +58,9 @@ Map<String, dynamic> extractLetters(List<String> words) {
   return letters;
 }
 
-Future<DictionaryModel> fetchAndCreateDictionary(Client client) async {
-  var words = await fetchWords(client);
+Future<DictionaryModel> fetchAndCreateDictionary(
+    Client client, String date) async {
+  var words = await fetchWords(client, date);
   var letters = extractLetters(words);
 
   return DictionaryModel(

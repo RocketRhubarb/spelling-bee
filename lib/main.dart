@@ -150,9 +150,12 @@ class _HomePageState extends State<HomePage> {
       }
       setState(() {
         _selectedDate = pickedDate;
+        dict = fetchDictionary(_selectedDate);
+        foundWords = [];
+        score = 0;
+        getLevel;
       });
     });
-    print(_selectedDate);
   }
 
   Widget build(BuildContext context) {

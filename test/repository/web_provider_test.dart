@@ -30,16 +30,16 @@ void main() {
 
     // Act
 
-    var response = await fetch_from_web.fetchWords(client);
+    var response = await fetch_from_web.fetchWords(client, '20200202');
 
     // Assert
-    expect(response, equals(['abc', 'def', 'ghi']));
+    expect(response, equals(['ABC', 'DEF', 'GHI']));
   });
   test('testing extract letter function', () {
-    var words = ['abc', 'ade', 'afg'];
+    var words = ['ABC', 'ADE', 'AFG'];
     var letters = fetch_from_web.extractLetters(words);
 
-    expect(letters['primaryLetter'], equals('a'));
-    expect(letters['secondaryLetters'], equals(['b', 'c', 'd', 'e', 'f', 'g']));
+    expect(letters['primaryLetter'], equals('A'));
+    expect(letters['secondaryLetters'], equals(['B', 'C', 'D', 'E', 'F', 'G']));
   });
 }
