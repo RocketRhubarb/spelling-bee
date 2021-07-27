@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
 
-import 'package:spelling_bee/providers/fetch_from_web.dart' as fetch_from_web;
+import 'package:spelling_bee/repository/web_provider.dart' as fetch_from_web;
 
 void main() {
   // Our tests will go here
