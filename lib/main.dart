@@ -39,8 +39,6 @@ class _HomePageState extends State<HomePage> {
 
   Future<DictionaryModel> dict;
 
-  bool onlyShowWords = false;
-
   int score = 0;
   String word = '';
   String message = '';
@@ -168,117 +166,87 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Spelling Bee'),
       ),
-      body: !onlyShowWords
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                TextButton(
-                  onPressed: _datePicker,
-                  child: Text(
-                    '${DateFormat.yMMMd().format(_selectedDate)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: TextButton.styleFrom(
-                      primary: Theme.of(context).primaryColor),
-                ),
-                ScoreBoard(
-                  score: score,
-                  maximumScore: _maxScore,
-                  level: getLevel,
-                ),
-                MediaQuery.of(context).size.height > 600
-                    ? FoundWords(foundWords: foundWords)
-                    : Column(
-                        children: <Widget>[
-                          Text('Show found words'),
-                          Switch.adaptive(
-                            activeColor: Theme.of(context).primaryColor,
-                            value: onlyShowWords,
-                            onChanged: (value) {
-                              setState(() {
-                                onlyShowWords = value;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                Text(word, style: TextStyle(fontSize: 22.0)),
-                Text(message),
-                FutureBuilder<DictionaryModel>(
-                  future: dict, // a previously-obtained Future<String> or null
-                  builder: (BuildContext context,
-                      AsyncSnapshot<DictionaryModel> snapshot) {
-                    List<Widget> children;
-                    if (snapshot.hasData) {
-                      dictionary = snapshot.data.words;
-                      primaryLetter = snapshot.data.primaryLetter;
-                      secondaryLetters = snapshot.data.secondaryLetters;
-                      foundWords = snapshot.data.foundWords;
-                      score = _calcualteTotalScore(foundWords);
-                      children = <Widget>[
-                        LetterTiles(
-                          primaryLetter: primaryLetter,
-                          secondaryLetters: secondaryLetters,
-                          addToWord: _addToWord,
-                        ),
-                      ];
-                    } else if (snapshot.hasError) {
-                      children = <Widget>[
-                        const Icon(
-                          Icons.error_outline,
-                          color: Colors.red,
-                          size: 60,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: Text('Error: ${snapshot.error.toString()}'),
-                        )
-                      ];
-                    } else {
-                      children = const <Widget>[
-                        SizedBox(
-                          child: CircularProgressIndicator(),
-                          width: 60,
-                          height: 60,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 16),
-                          child: Text('Loading today\'s puzzle'),
-                        )
-                      ];
-                    }
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: children,
-                      ),
-                    );
-                  },
-                ),
-                Buttons(
-                  checkWord: _checkWord,
-                  removeLast: _removeLast,
-                  shuffle: _shuffleSecondaryLetterOrder,
-                )
-              ],
-            )
-          : Column(
-              children: <Widget>[
-                Text('Show found words'),
-                Switch(
-                  value: onlyShowWords,
-                  onChanged: (value) {
-                    setState(() {
-                      onlyShowWords = value;
-                    });
-                  },
-                ),
-                FoundWords(foundWords: foundWords)
-              ],
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          TextButton(
+            onPressed: _datePicker,
+            child: Text(
+              '${DateFormat.yMMMd().format(_selectedDate)}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
+            style:
+                TextButton.styleFrom(primary: Theme.of(context).primaryColor),
+          ),
+          ScoreBoard(
+            score: score,
+            maximumScore: _maxScore,
+            level: getLevel,
+          ),
+          FoundWords(foundWords: foundWords),
+          Text(word, style: TextStyle(fontSize: 22.0)),
+          Text(message),
+          FutureBuilder<DictionaryModel>(
+            future: dict, // a previously-obtained Future<String> or null
+            builder: (BuildContext context,
+                AsyncSnapshot<DictionaryModel> snapshot) {
+              List<Widget> children;
+              if (snapshot.hasData) {
+                dictionary = snapshot.data.words;
+                primaryLetter = snapshot.data.primaryLetter;
+                secondaryLetters = snapshot.data.secondaryLetters;
+                foundWords = snapshot.data.foundWords;
+                score = _calcualteTotalScore(foundWords);
+                children = <Widget>[
+                  LetterTiles(
+                    primaryLetter: primaryLetter,
+                    secondaryLetters: secondaryLetters,
+                    addToWord: _addToWord,
+                  ),
+                ];
+              } else if (snapshot.hasError) {
+                children = <Widget>[
+                  const Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                    size: 60,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Text('Error: ${snapshot.error.toString()}'),
+                  )
+                ];
+              } else {
+                children = const <Widget>[
+                  SizedBox(
+                    child: CircularProgressIndicator(),
+                    width: 60,
+                    height: 60,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text('Loading today\'s puzzle'),
+                  )
+                ];
+              }
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: children,
+                ),
+              );
+            },
+          ),
+          Buttons(
+            checkWord: _checkWord,
+            removeLast: _removeLast,
+            shuffle: _shuffleSecondaryLetterOrder,
+          )
+        ],
+      ),
     );
   }
 }
