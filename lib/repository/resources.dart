@@ -14,39 +14,64 @@ Future<String> get _localPath async {
   return directory.path;
 }
 
+String formattedDate(DateTime date) {
+  var formatter = new DateFormat('yyyyMMdd');
+  String formDate = formatter.format(date);
+  return formDate;
+}
+
 Future<DictionaryModel> fetchDictionary(DateTime date) async {
   // var date = '2021-07-27';
 
-  var formatter = new DateFormat('yyyyMMdd');
-  String formattedDate = formatter.format(date);
+  String formDate = formattedDate(date);
+  print(formDate);
 
   final path = await _localPath;
   final db = await databaseFactoryIo.openDatabase('$path/words_and_letters.db');
 
   var store = StoreRef.main();
 
-  var entry = await store.record(formattedDate).get(db) as Map;
+  var entry = await store.record(formDate).get(db) as Map;
 
   if (entry != null) {
     print('from db');
+    print(entry['foundWords']);
     return DictionaryModel(
       words: List<String>.from(entry['words']),
       primaryLetter: entry['primaryLetter'],
       secondaryLetters: List<String>.from(entry['secondaryLetters']),
+      foundWords: List<String>.from(entry['foundWords']),
     );
   } else {
     print('from web');
     var client = Client();
-    var dictionary = await fetchAndCreateDictionary(client, formattedDate);
-    storeInDb(dictionary, formattedDate);
+    var dictionary = await fetchAndCreateDictionary(client, formDate);
+    storeInDb(dictionary, formDate);
     return dictionary;
   }
 }
 
-void storeInDb(DictionaryModel dictionary, String formattedDate) async {
+void storeInDb(DictionaryModel dictionary, String formDate) async {
   final path = await _localPath;
   final db = await databaseFactoryIo.openDatabase('$path/words_and_letters.db');
   var store = StoreRef.main();
 
-  await store.record(formattedDate).put(db, dictionary.toMap());
+  await store.record(formDate).put(db, dictionary.toMap());
+}
+
+void updateFoundWords(DateTime date, List<String> foundWords) async {
+  var formDate = formattedDate(date);
+
+  final path = await _localPath;
+  final db = await databaseFactoryIo.openDatabase('$path/words_and_letters.db');
+  var store = StoreRef.main();
+
+  var record = store.record(formDate);
+  // var readMap = await record.get(db);
+
+  await record.update(db, {'foundWords': foundWords});
+
+  // debug
+  var entry = await store.record(formDate).get(db) as Map;
+  print(entry['foundWords']);
 }

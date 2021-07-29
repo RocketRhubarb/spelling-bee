@@ -67,5 +67,6 @@ Future<DictionaryModel> fetchAndCreateDictionary(
     words: words,
     primaryLetter: letters['primaryLetter'],
     secondaryLetters: letters['secondaryLetters'],
+    foundWords: [],
   );
 }

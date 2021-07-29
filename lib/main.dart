@@ -43,8 +43,8 @@ class _HomePageState extends State<HomePage> {
 
   int score = 0;
   String word = '';
-  List<String> foundWords = [];
   String message = '';
+  List<String> foundWords = [];
 
   @override
   void initState() {
@@ -73,6 +73,7 @@ class _HomePageState extends State<HomePage> {
         if (!foundWords.contains(word)) {
           foundWords.add(word);
           foundWords.sort();
+          updateFoundWords(_selectedDate, foundWords);
           score += _calculateScore(word);
           message = '';
         }
@@ -151,7 +152,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _selectedDate = pickedDate;
         dict = fetchDictionary(_selectedDate);
-        foundWords = [];
+        // foundWords = [];
         score = 0;
         getLevel;
       });
@@ -209,6 +210,7 @@ class _HomePageState extends State<HomePage> {
                       dictionary = snapshot.data.words;
                       primaryLetter = snapshot.data.primaryLetter;
                       secondaryLetters = snapshot.data.secondaryLetters;
+                      foundWords = snapshot.data.foundWords;
                       children = <Widget>[
                         LetterTiles(
                           primaryLetter: primaryLetter,
