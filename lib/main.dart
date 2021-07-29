@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  int _calculateScore(word) {
+  int _calculateScore(String word) {
     if (secondaryLetters == null) return 1;
 
     bool panagram = secondaryLetters
@@ -109,14 +109,18 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  int _calcualteTotalScore(List<String> words) {
+    return words
+        .map((element) => _calculateScore(element))
+        .reduce((a, b) => a + b);
+  }
+
   int get _maxScore {
     if (dictionary == null) {
       return 100;
     }
 
-    return dictionary.map((element) {
-      return _calculateScore(element);
-    }).reduce((a, b) => a + b);
+    return _calcualteTotalScore(dictionary);
   }
 
   String get getLevel {
@@ -153,7 +157,7 @@ class _HomePageState extends State<HomePage> {
         _selectedDate = pickedDate;
         dict = fetchDictionary(_selectedDate);
         // foundWords = [];
-        score = 0;
+        score = _calcualteTotalScore(foundWords);
         getLevel;
       });
     });
@@ -212,6 +216,7 @@ class _HomePageState extends State<HomePage> {
                       primaryLetter = snapshot.data.primaryLetter;
                       secondaryLetters = snapshot.data.secondaryLetters;
                       foundWords = snapshot.data.foundWords;
+                      score = _calcualteTotalScore(foundWords);
                       children = <Widget>[
                         LetterTiles(
                           primaryLetter: primaryLetter,
