@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
           ? Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                FlatButton(
+                TextButton(
                   onPressed: _datePicker,
                   child: Text(
                     '${DateFormat.yMMMd().format(_selectedDate)}',
@@ -176,7 +176,8 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  textColor: Theme.of(context).primaryColor,
+                  style: TextButton.styleFrom(
+                      primary: Theme.of(context).primaryColor),
                 ),
                 ScoreBoard(
                   score: score,
