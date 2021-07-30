@@ -61,7 +61,9 @@ class _HomePageState extends State<HomePage> {
 
   void _removeLast() {
     setState(() {
-      word = word.substring(0, word.length - 1);
+      if (word.length > 0) {
+        word = word.substring(0, word.length - 1);
+      }
     });
   }
 
