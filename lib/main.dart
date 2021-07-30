@@ -166,22 +166,29 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Spelling Bee'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Spelling Bee'),
+            TextButton(
+              onPressed: _datePicker,
+              child: Text(
+                '${DateFormat.yMMMd().format(_selectedDate)}',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: TextButton.styleFrom(
+                // primary: Theme.of(context).primaryColor,
+                primary: Colors.black,
+              ),
+            ),
+          ],
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          TextButton(
-            onPressed: _datePicker,
-            child: Text(
-              '${DateFormat.yMMMd().format(_selectedDate)}',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            style:
-                TextButton.styleFrom(primary: Theme.of(context).primaryColor),
-          ),
           ScoreBoard(
             score: score,
             maximumScore: _maxScore,
