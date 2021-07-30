@@ -69,6 +69,10 @@ class _HomePageState extends State<HomePage> {
 
   void _checkWord() {
     setState(() {
+      if (dictionary == null) {
+        return;
+      }
+
       if (dictionary.contains(word)) {
         if (!foundWords.contains(word)) {
           foundWords.add(word);
@@ -91,6 +95,9 @@ class _HomePageState extends State<HomePage> {
 
   void _shuffleSecondaryLetterOrder() {
     setState(() {
+      if (secondaryLetters == null) {
+        return;
+      }
       secondaryLetters.shuffle();
     });
   }
