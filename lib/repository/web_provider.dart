@@ -61,6 +61,11 @@ Map<String, dynamic> extractLetters(List<String> words) {
 Future<DictionaryModel> fetchAndCreateDictionary(
     Client client, String date) async {
   var words = await fetchWords(client, date);
+
+  if (words.length == 0) {
+    return throw ("No found words today, pick other day.");
+  }
+
   var letters = extractLetters(words);
 
   return DictionaryModel(
