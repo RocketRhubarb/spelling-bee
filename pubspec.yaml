@@ -44,7 +44,6 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-  # android: "launcher_icon"
   image_path: "assets/icon/bee.png"
   android: true
   ios: true
