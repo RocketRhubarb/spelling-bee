@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
 import './widgets/found_words.dart';
@@ -8,7 +7,6 @@ import './widgets/score_board.dart';
 import './widgets/buttons.dart';
 import './models/dictionary_model.dart';
 import './repository/resources.dart';
-// import './repository/web_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -166,7 +164,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _selectedDate = pickedDate;
         dict = fetchDictionary(_selectedDate);
-        // foundWords = [];
         score = _calcualteTotalScore(foundWords);
         getLevel;
       });
@@ -189,7 +186,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               style: TextButton.styleFrom(
-                // primary: Theme.of(context).primaryColor,
                 primary: Colors.black,
               ),
             ),
@@ -208,7 +204,7 @@ class _HomePageState extends State<HomePage> {
           Text(word, style: TextStyle(fontSize: 22.0)),
           Text(message),
           FutureBuilder<DictionaryModel>(
-            future: dict, // a previously-obtained Future<String> or null
+            future: dict,
             builder: (BuildContext context,
                 AsyncSnapshot<DictionaryModel> snapshot) {
               List<Widget> children;
