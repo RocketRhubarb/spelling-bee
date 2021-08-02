@@ -117,6 +117,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   int _calcualteTotalScore(List<String> words) {
+    if (words.length == 0) {
+      return 0;
+    }
     return words
         .map((element) => _calculateScore(element))
         .reduce((a, b) => a + b);
