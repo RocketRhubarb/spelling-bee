@@ -192,75 +192,70 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          ScoreBoard(
-            score: score,
-            maximumScore: _maxScore,
-            level: getLevel,
-          ),
-          FoundWords(foundWords: foundWords),
-          Text(word, style: TextStyle(fontSize: 22.0)),
-          Text(message),
-          FutureBuilder<DictionaryModel>(
-            future: dict,
-            builder: (BuildContext context,
-                AsyncSnapshot<DictionaryModel> snapshot) {
-              List<Widget> children;
-              if (snapshot.hasData) {
-                dictionary = snapshot.data.words;
-                primaryLetter = snapshot.data.primaryLetter;
-                secondaryLetters = snapshot.data.secondaryLetters;
-                foundWords = snapshot.data.foundWords;
-                score = _calcualteTotalScore(foundWords);
-                children = <Widget>[
-                  LetterTiles(
-                    primaryLetter: primaryLetter,
-                    secondaryLetters: secondaryLetters,
-                    addToWord: _addToWord,
-                  ),
-                ];
-              } else if (snapshot.hasError) {
-                children = <Widget>[
-                  const Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 60,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text('Error: ${snapshot.error.toString()}'),
-                  )
-                ];
-              } else {
-                children = const <Widget>[
-                  SizedBox(
-                    child: CircularProgressIndicator(),
-                    width: 60,
-                    height: 60,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: Text('Loading today\'s puzzle'),
-                  )
-                ];
-              }
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: children,
-                ),
-              );
-            },
-          ),
-          Buttons(
-            checkWord: _checkWord,
-            removeLast: _removeLast,
-            shuffle: _shuffleSecondaryLetterOrder,
-          )
-        ],
+      body: FutureBuilder<DictionaryModel>(
+        future: dict,
+        builder:
+            (BuildContext context, AsyncSnapshot<DictionaryModel> snapshot) {
+          List<Widget> children;
+          if (snapshot.hasData) {
+            dictionary = snapshot.data.words;
+            primaryLetter = snapshot.data.primaryLetter;
+            secondaryLetters = snapshot.data.secondaryLetters;
+            foundWords = snapshot.data.foundWords;
+            score = _calcualteTotalScore(foundWords);
+            children = <Widget>[
+              ScoreBoard(
+                score: score,
+                maximumScore: _maxScore,
+                level: getLevel,
+              ),
+              FoundWords(foundWords: foundWords),
+              Text(word, style: TextStyle(fontSize: 22.0)),
+              Text(message),
+              LetterTiles(
+                primaryLetter: primaryLetter,
+                secondaryLetters: secondaryLetters,
+                addToWord: _addToWord,
+              ),
+              Buttons(
+                checkWord: _checkWord,
+                removeLast: _removeLast,
+                shuffle: _shuffleSecondaryLetterOrder,
+              ),
+            ];
+          } else if (snapshot.hasError) {
+            children = <Widget>[
+              const Icon(
+                Icons.error_outline,
+                color: Colors.red,
+                size: 60,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text('Error: ${snapshot.error.toString()}'),
+              )
+            ];
+          } else {
+            children = const <Widget>[
+              SizedBox(
+                child: CircularProgressIndicator(),
+                width: 60,
+                height: 60,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text('Loading today\'s puzzle'),
+              )
+            ];
+          }
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: children,
+            ),
+          );
+        },
       ),
     );
   }
