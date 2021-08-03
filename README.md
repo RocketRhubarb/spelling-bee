@@ -1,9 +1,5 @@
 # Spelling Bee
 
-## Author
-
-Andreas Röckert
-
 ## About the game
 
 Spelling Bee is a puzzle game where you want to find as many words as possible out of seven letters. Use it to test and extend your vocabulary while having fun.
@@ -36,3 +32,7 @@ As you play the game and find words, your progress in points and found words can
 ## Distribution
 
 The game is currently not distributed on any store is build for production but instead used as an educational project. If there happens to be of interest, please report it as an issue.
+
+## Author
+
+Andreas Röckert, 2021
