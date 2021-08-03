@@ -8,6 +8,8 @@ Andreas Röckert
 
 Spelling Bee is a puzzle game where you want to find as many words as possible out of seven letters. Use it to test and extend your vocabulary while having fun.
 
+<img src="assets/game_screenshots/type_word.png" alt="spelling bee game" width=270 height=480>
+
 The rules of the game are:
 
 - Build words from the seven letters available
@@ -25,7 +27,11 @@ I created a clone of the game using the [Flutter SDK](https://flutter.dev/) in [
 
 In the current implementation, the app makes a web request and fetches today's words from the web, or[nytbee.com](nytbee.com) to be exact. It parses the HTML response and creates an internal model of the correct words from the day. From the correct words, the app derives the letters for the gameboard and stores this information (correct words and letters) in a [persistent NoSQL database](https://pub.dev/packages/sembast) on the device. Next time you play the same day's game, the words are instead fetched from the database. Additionally, your progress is also stored in the same database, allowing you to continue at any time or select an earlier date to play.
 
+<img src="assets/game_screenshots/calendar.png" alt="spelling bee game" width=270 height=480>
+
 As you play the game and find words, your progress in points and found words can be seen from the game screen. The game will also give you guidance on the rules if you make any mistakes.
+
+<img src="assets/game_screenshots/advice.png" alt="spelling bee game" width=270 height=480>
 
 ## Distribution
 
